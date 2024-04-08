@@ -1,13 +1,25 @@
 import asyncio
 import contextlib
 import logging
+import os
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.enums import ParseMode
 from aiogram.types import Message
 from aiogram.utils.markdown import link
 
-BOT_TOKEN = '7007068357:AAHAEquXPhQzgTB_gi4EHPBHZSP-rGzd_RE'
+from dotenv import load_dotenv
+
+#
+# dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+# if os.path.exists(dotenv_path):
+#     load_dotenv(dotenv_path)
+
+
+load_dotenv()
+
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
 RULES_MESSAGE = 'https://t.me/c/1600777995/16'
 CHANNEL_ID = ''
 CHAT_ID = ''
