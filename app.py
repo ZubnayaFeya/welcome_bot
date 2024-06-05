@@ -1,41 +1,12 @@
 import asyncio
 import contextlib
 import logging
-import os
 
-from aiogram import Bot, Dispatcher, F
-from aiogram.enums import ParseMode
-from aiogram.types import Message
-
-from dotenv import load_dotenv
+from aiogram import Bot, Dispatcher
 
 
-load_dotenv()
-
-BOT_TOKEN = os.getenv('BOT_TOKEN')
-
-RULES_MESSAGE = 'https://t.me/c/1600777995/16'
-CHANNEL_ID = ''
-CHAT_ID = ''
-ADMIN_ID = ''
-
-
-dp = Dispatcher()
-
-
-def welcome_message(username):
-    message = (f'Привет, @{username}! ✌️\n'
-               f'Добро пожаловать в чат автоклуба WV T5&T6! 🚘\n'
-               f'Перед началом общения почитай 👉 '
-               f'<a href="{RULES_MESSAGE}">правила</a>')
-    return message
-
-
-@dp.message(F.new_chat_members)
-async def new_member(message: Message):
-    for user in message.new_chat_members:
-        name = user.username if user.username else user.full_name
-        await message.answer(welcome_message(name), parse_mode=ParseMode.HTML)
+from app.handlers import router
+from utils.conf import BOT_TOKEN
 
 
 async def main():
@@ -45,6 +16,8 @@ async def main():
     )
 
     bot = Bot(token=BOT_TOKEN)
+    dp = Dispatcher()
+    dp.include_router(router)
 
     try:
         await dp.start_polling(bot)
