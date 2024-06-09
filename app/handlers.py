@@ -23,9 +23,12 @@ def welcome_message(username):
 
 @router.message(Command(commands=['status']))
 async def get_status_bot(message: Message):
-    uptime = datetime.datetime.now() - START_TIME
-    text = f'Бот работает {prepare_datetime(uptime)}'
-    await message.answer(text)
+    chat_admins = await message.bot.get_chat_administrators(message.chat.id)
+    chat_admins_ids = [admin.user.id for admin in chat_admins]
+    if message.from_user.id in chat_admins_ids:
+        uptime = datetime.datetime.now() - START_TIME
+        text = f'Бот работает {prepare_datetime(uptime)}'
+        await message.answer(text)
 
 
 @router.message(F.new_chat_members)
