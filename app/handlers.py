@@ -13,7 +13,7 @@ router = Router()
 START_TIME = datetime.datetime.now()
 
 
-def welcome_message(username):
+def _welcome_message(username):
     message = (f'Привет, @{username}! ✌️\n'
                f'Добро пожаловать в чат автоклуба WV T5&T6! 🚘\n'
                f'Перед началом общения почитай 👉 '
@@ -35,4 +35,4 @@ async def get_status_bot(message: Message):
 async def new_member(message: Message):
     for user in message.new_chat_members:
         name = user.username if user.username else user.full_name
-        await message.answer(welcome_message(name), parse_mode=ParseMode.HTML)
+        await message.answer(_welcome_message(name), parse_mode=ParseMode.HTML)

@@ -5,7 +5,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
-RULES_MESSAGE = 'https://t.me/c/1600777995/16'
+RULES_MESSAGE = os.getenv('LINK_MESSAGE')
 CHANNEL_ID = ''
 CHAT_ID = ''
 ADMIN_ID = ''
